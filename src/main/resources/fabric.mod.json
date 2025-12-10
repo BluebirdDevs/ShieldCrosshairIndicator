@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "shieldindicator",
+  "version": "${version}",
+  "name": "Shield Indicator",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/shieldindicator/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "bluebird.shieldindicator.client.Shieldindicator"
+    ],
+    "modmenu": [
+      "bluebird.shieldindicator.client.ConfigModMenu"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "shieldindicator.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

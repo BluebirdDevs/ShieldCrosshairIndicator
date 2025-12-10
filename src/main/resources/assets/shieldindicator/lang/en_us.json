@@ -1,0 +1,9 @@
+{
+  "text.autoconfig.shieldindicator.title": "Shield Indicator Config",
+  "text.autoconfig.shieldindicator.option.indicatorMode": "Indicator Mode",
+  "text.autoconfig.shieldindicator.option.indicatorMode.@Tooltip": "Changes when the attack indicator is displayed",
+  "text.autoconfig.shieldindicator.option.shieldIndicator": "Enable Shield Indicator",
+  "text.autoconfig.shieldindicator.option.shieldIndicator.@Tooltip": "Enables or disables the shield indicator",
+  "text.autoconfig.shieldindicator.option.textureMode": "Texture Mode",
+  "text.autoconfig.shieldindicator.option.textureMode.@Tooltip": "Changes how the indicators are displayed (For resourcepacks)"
+}
