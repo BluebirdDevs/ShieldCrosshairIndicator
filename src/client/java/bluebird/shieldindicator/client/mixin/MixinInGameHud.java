@@ -8,7 +8,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -45,13 +44,13 @@ public class MixinInGameHud {
         if (ModConfig.INSTANCE.textureMode == ModConfig.TextureMode.LAYERED && this.client.targetedEntity instanceof LivingEntity entity && client.player != null) {
             boolean showShield = false;
             boolean showCrosshair = true;
-            Identifier texture = ATTACK_CROSSHAIR_OVERRIDE;
             if (entity instanceof PlayerEntity player) {
                 showShield = Shieldindicator.shouldShowShield(player, client);
-                texture = showShield ? SHIELD_CROSSHAIR_OVERRIDE : ATTACK_CROSSHAIR_OVERRIDE;
             } else if (ModConfig.INSTANCE.indicatorMode == ModConfig.IndicatorMode.PLAYERS) {
                 showCrosshair = false;
             }
+
+            Identifier texture = showShield ? SHIELD_CROSSHAIR : ATTACK_CROSSHAIR;
 
             if (ModConfig.INSTANCE.indicatorMode == ModConfig.IndicatorMode.OFF && !showShield || !showCrosshair) {
             } else if (Shieldindicator.centeredCrosshair) {
@@ -82,6 +81,7 @@ public class MixinInGameHud {
         return sprite;
     }
 
+    @Unique
     private static void drawCenteredCrosshair(DrawContext instance, RenderPipeline pipeline, Identifier sprite, float x, float y, int w, int h) {
         try {
             Method m = instance.getClass().getMethod(
