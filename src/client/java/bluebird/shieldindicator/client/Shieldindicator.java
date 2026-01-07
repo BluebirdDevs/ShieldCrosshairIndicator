@@ -12,11 +12,11 @@ import org.slf4j.LoggerFactory;
 public class Shieldindicator implements ClientModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("shieldindicator");
 
-    public static boolean centeredCrosshair;
+    public static boolean centeredCrosshairLoaded;
 
     @Override
     public void onInitializeClient() {
-        centeredCrosshair = FabricLoader.getInstance().isModLoaded("centered-crosshair");
+        centeredCrosshairLoaded = FabricLoader.getInstance().isModLoaded("centered-crosshair");
         ModConfig.init();
     }
 

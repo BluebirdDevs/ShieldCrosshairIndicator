@@ -27,16 +27,10 @@ public class MixinInGameHud {
     @Shadow @Final private MinecraftClient client;
 
     @Unique
-    private static final Identifier ATTACK_CROSSHAIR = Identifier.of("shieldindicator", "hud/layer/indicator_crosshair");
+    private static final Identifier ATTACK_CROSSHAIR = Identifier.of("shieldindicator", "hud/indicator_crosshair");
 
     @Unique
-    private static final Identifier SHIELD_CROSSHAIR = Identifier.of("shieldindicator", "hud/layer/shield_crosshair");
-
-    @Unique
-    private static final Identifier ATTACK_CROSSHAIR_OVERRIDE = Identifier.of("shieldindicator", "hud/override/indicator_crosshair");
-
-    @Unique
-    private static final Identifier SHIELD_CROSSHAIR_OVERRIDE = Identifier.of("shieldindicator", "hud/override/shield_crosshair");
+    private static final Identifier SHIELD_CROSSHAIR = Identifier.of("shieldindicator", "hud/shield_crosshair");
 
 
     @Inject(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIII)V", ordinal = 0))
@@ -53,7 +47,7 @@ public class MixinInGameHud {
             Identifier texture = showShield ? SHIELD_CROSSHAIR : ATTACK_CROSSHAIR;
 
             if (ModConfig.INSTANCE.indicatorMode == ModConfig.IndicatorMode.OFF && !showShield || !showCrosshair) {
-            } else if (Shieldindicator.centeredCrosshair) {
+            } else if (Shieldindicator.centeredCrosshairLoaded) {
                 float scaleFactor = (float) MinecraftClient.getInstance().getWindow().getScaleFactor();
                 float scaledCenterX = (MinecraftClient.getInstance().getWindow().getFramebufferWidth() / scaleFactor) / 2f;
                 float scaledCenterY = (MinecraftClient.getInstance().getWindow().getFramebufferHeight() / scaleFactor) / 2f;
@@ -68,10 +62,10 @@ public class MixinInGameHud {
     private Identifier changeCrosshair(Identifier sprite) {
         if (ModConfig.INSTANCE.textureMode == ModConfig.TextureMode.OVERRIDE && this.client.targetedEntity instanceof LivingEntity) {
             boolean showShield = false;
-            Identifier texture = ATTACK_CROSSHAIR_OVERRIDE;
+            Identifier texture = ATTACK_CROSSHAIR;
             if (this.client.targetedEntity instanceof PlayerEntity player && client.player != null) {
                 showShield = Shieldindicator.shouldShowShield(player, client);
-                texture = showShield ? SHIELD_CROSSHAIR_OVERRIDE : ATTACK_CROSSHAIR_OVERRIDE;
+                texture = showShield ? SHIELD_CROSSHAIR : ATTACK_CROSSHAIR;
             } else if (ModConfig.INSTANCE.indicatorMode == ModConfig.IndicatorMode.PLAYERS) return sprite;
 
             if (ModConfig.INSTANCE.indicatorMode == ModConfig.IndicatorMode.OFF && !showShield) {
