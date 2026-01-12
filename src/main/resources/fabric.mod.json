@@ -3,9 +3,13 @@
   "id": "shieldindicator",
   "version": "${version}",
   "name": "Shield Indicator",
-  "description": "",
-  "authors": [],
-  "contact": {},
+  "description": "Shows a shield icon when a player is blocking with a shield and an attack with an axe would disable it. Also has a crosshair indicator enabled by default",
+  "authors": ["BluebirdDevs"],
+  "contact": {
+    "sources": "https://github.com/BluebirdDevs/ShieldCrosshairIndicator",
+    "homepage": "https://modrinth.com/project/HaPmOVyH",
+    "issues": "https://github.com/BluebirdDevs/ShieldCrosshairIndicator/issues"
+  },
   "license": "All-Rights-Reserved",
   "icon": "assets/shieldindicator/icon.png",
   "environment": "client",
