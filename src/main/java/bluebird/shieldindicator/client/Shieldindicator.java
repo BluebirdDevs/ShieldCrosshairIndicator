@@ -3,9 +3,9 @@ package bluebird.shieldindicator.client;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,19 +20,19 @@ public class Shieldindicator implements ClientModInitializer {
         ModConfig.init();
     }
 
-    public static boolean shouldShowShield(PlayerEntity defender, MinecraftClient client) {
+    public static boolean shouldShowShield(Player defender, Minecraft client) {
         if (!defender.isBlocking() || !ModConfig.INSTANCE.shieldIndicator) {
             return false;
         }
 
-        PlayerEntity attacker = client.player;
-        Vec3d defenderLook = defender.getRotationVector().normalize();
+        Player attacker = client.player;
+        Vec3 defenderLook = defender.getLookAngle().normalize();
 
-        Vec3d defenderEye = defender.getEyePos();
-        Vec3d attackerEye = attacker.getEyePos();
+        Vec3 defenderEye = defender.getEyePosition();
+        Vec3 attackerEye = attacker.getEyePosition();
 
-        Vec3d toAttacker = attackerEye.subtract(defenderEye).normalize();
+        Vec3 toAttacker = attackerEye.subtract(defenderEye).normalize();
 
-        return !(toAttacker.dotProduct(defenderLook) <= 0.0D);
+        return !(toAttacker.dot(defenderLook) <= 0.0D);
     }
 }
