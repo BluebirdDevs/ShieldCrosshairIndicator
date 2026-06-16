@@ -3,6 +3,7 @@ package bluebird.shieldindicator.client.mixin;
 import bluebird.shieldindicator.client.ModConfig;
 import bluebird.shieldindicator.client.Shieldindicator;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
+import net.minecraft.client.gui.Hud;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,14 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.lang.reflect.Method;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-@Mixin(Gui.class)
+@Mixin(Hud.class)
 public class MixinInGameHud {
     @Shadow @Final private Minecraft minecraft;
 
