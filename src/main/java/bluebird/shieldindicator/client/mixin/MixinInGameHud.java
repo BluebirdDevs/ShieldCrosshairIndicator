@@ -2,7 +2,7 @@ package bluebird.shieldindicator.client.mixin;
 
 import bluebird.shieldindicator.client.ModConfig;
 import bluebird.shieldindicator.client.Shieldindicator;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import net.minecraft.client.gui.Hud;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +33,7 @@ public class MixinInGameHud {
     private static final Identifier SHIELD_CROSSHAIR = Identifier.fromNamespaceAndPath("shieldindicator", "hud/shield_crosshair");
 
 
-    @Inject(method = "extractCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V", ordinal = 0))
+    @Inject(method = "extractCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V", ordinal = 0))
     private void shieldindicator$layerCrosshair(GuiGraphicsExtractor context, DeltaTracker tickCounter, CallbackInfo ci) {
         if (ModConfig.INSTANCE.textureMode == ModConfig.TextureMode.LAYERED && this.minecraft.crosshairPickEntity instanceof LivingEntity entity && minecraft.player != null) {
             boolean showShield = false;
@@ -58,7 +58,7 @@ public class MixinInGameHud {
         }
     }
 
-    @ModifyArg(method = "extractCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V", ordinal = 0), index = 1)
+    @ModifyArg(method = "extractCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V", ordinal = 0), index = 1)
     private Identifier shieldindicator$changeCrosshair(Identifier sprite) {
         if (ModConfig.INSTANCE.textureMode == ModConfig.TextureMode.OVERRIDE && this.minecraft.crosshairPickEntity instanceof LivingEntity) {
             boolean showShield = false;
